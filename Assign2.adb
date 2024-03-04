@@ -1,6 +1,6 @@
 with Ada.Text_IO; use Ada.Text_IO;
 
-procedure YourProgram is
+procedure Assign2 is
    -- Declarations (if any)
    List : array(1 .. 14) of Integer := (3, 105, 3773, 13, 121, 78, 30751, 16461, 1233222, 348373443, 8769, 1011, 808, 121);
    -- Procedure declarations
@@ -169,4 +169,4 @@ procedure YourProgram is
 
    begin
    Main;
-end YourProgram;
+end Assign2;
