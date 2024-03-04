@@ -101,7 +101,7 @@ procedure Assign2 is
       end if;
 
       -- Tell the user the results
-      Put_Line("The Number " & Integer'Image(Number) & (if Answer then "is Prime" else "isn't Prime"));
+      Put_Line("The Number " & Integer'Image(Number) & (if Answer then " is Prime" else " isn't Prime"));
    end CheckPrime;
 
    -- Example usage
