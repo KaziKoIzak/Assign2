@@ -1,16 +1,20 @@
 with Ada.Text_IO; use Ada.Text_IO;
 
 procedure Assign2 is
+   type Float_Array is array (Positive range <>) of Float;
    -- Declarations (if any)
    List : array(1 .. 14) of Integer := (3, 105, 3773, 13, 121, 78, 30751, 16461, 1233222, 348373443, 8769, 1011, 808, 121);
    -- Procedure declarations
    procedure Multiple;
    procedure Sum;
-   procedure Prime;
+   procedure CheckPrime(Number: Integer);
    procedure Palindrome;
+   procedure PrintArray(Arr: Float_Array);
+   procedure ArraySorter(Arr: in out Float_Array);
+   procedure ArrayMaker(Arr1, Arr2, Arr3: in Float_Array; Size1, Size2: Integer; ArrResult: out Float_Array; Size3: out Integer);
+   procedure RemoveDuplicates(Arr: in out Float_Array; Size: in out Integer);
    procedure PartA;
-   --procedure PartB;
-   -- Add declarations for other procedures used in your code
+   procedure PartB;
 
    -- Main procedure
    procedure Main is
@@ -20,7 +24,7 @@ procedure Assign2 is
 
       Put_Line("-------------------------------------------------------------------");
 
-      --PartB;
+      PartB;
       -- Call other procedures for part B if needed
    end Main;
 
@@ -153,20 +157,120 @@ procedure Assign2 is
    procedure PartA is
    begin
       -- Print where we are at and then also print which function we are at
+      Put_Line("-------------------------------------------------------------------");
       Put_Line("Part A of Assignment");
       Put_Line("Multiple check of 7, 11, and 13");
       Multiple;
+      Put_Line("-------------------------------------------------------------------");
       Put_Line("\nSum Check if Odd or Even Digits");
       Sum;
+      Put_Line("-------------------------------------------------------------------");
       Put_Line("\nCheck if the number is a prime");
       Prime;
+      Put_Line("-------------------------------------------------------------------");
       Put_Line("\nCheck if the number is a palindrome");
       Palindrome;
    end PartA;
 
 
-      -- Add bodies for other procedures used in your code
-
+   procedure PrintArray(Arr: Float_Array) is
    begin
+      -- Go through every element of the array and print them
+      for I in Arr'Range loop
+         Put(Arr(I)'Image);
+         Put(" ");
+      end loop;
+      New_Line;
+   end PrintArray;
+
+   procedure Swap(Left, Right: in out Float) is
+      Temp : Float := Left;
+   begin
+      Left := Right;
+      Right := Temp;
+   end Swap;
+
+   procedure ArraySorter(Arr: in out Float_Array) is
+   begin
+      -- Bubble sort algorithm
+      for I in Arr'First .. Arr'Last loop
+         for J in Arr'First .. Arr'Last - I loop
+            -- Swap if the element found is greater than the next element
+            if Arr(J) > Arr(J + 1) then
+               Swap(Arr(J), Arr(J + 1));
+            end if;
+         end loop;
+      end loop;
+   end ArraySorter;
+
+   procedure ArrayMaker(Arr1, Arr2, Arr3: in Float_Array; Size1, Size2: Integer; ArrResult: out Float_Array; Size3: out Integer) is
+      I : Integer := 1;
+   begin
+      -- Put array 1 into larger array
+      for J in Arr1'Range loop
+         ArrResult(I) := Arr1(J);
+         I := I + 1;
+      end loop;
+
+      -- Put array 2 into larger array
+      for J in Arr2'Range loop
+         ArrResult(I) := Arr2(J);
+         I := I + 1;
+      end loop;
+
+      Size3 := I - 1;
+   end ArrayMaker;
+
+   procedure RemoveDuplicates(Arr: in out Float_Array; Size: in out Integer) is
+   Unique_Vector : Float_Array(1 .. Arr'Length);
+   begin
+      -- Use the erase-remove idiom to remove duplicates
+      Unique_Vector := Arr;
+      Unique_Vector := Unique_Vector(1 .. Size);
+
+      -- Copy the unique elements back to the original array
+      Size := Unique_Vector'Length;
+      Arr := Unique_Vector;
+   end RemoveDuplicates;
+
+
+   procedure PartB is
+      -- Declare float arrays
+      System : Float_Array := (1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 12.4362, 24654.1234, 1234475.234, 0.00234923, 0.2341, 13.0, 14.0, 15.0);
+      Programming : Float_Array := (1.0, 13462234.0, 8756.0, 3456345.0, 3452.0, 0.2345237543, 0.74567, 2345634.3456, 48753.3456, 4356.0, 345345.0, 695.0);
+      Size : Integer := System'Length;
+      Size2 : Integer := Programming'Length;
+      Size3: Integer := System'Length + Programming'Length;
+      New_Array : Float_Array(1 .. Size3);
+
+      begin
+      -- Print the arrays before they were sorted
+      Put_Line("Arrays Before Sorted");
+      PrintArray(System);
+      PrintArray(Programming);
+
+      -- Sort the array
+      ArraySorter(System);
+      ArraySorter(Programming);
+
+      Put_Line("Arrays After Sorted");
+
+      -- Print the arrays after the sort
+      PrintArray(System);
+      PrintArray(Programming);
+
+      -- Make the merged array
+      ArrayMaker(System, Programming, New_Array, Size, Size2, New_Array, Size3);
+      RemoveDuplicates(New_Array, Size3);
+
+      Put_Line("Merged Array");
+
+      -- Print the merged array
+      PrintArray(New_Array);
+   end PartB;
+
+   -- Add bodies for other procedures used in your code
+
+begin
    Main;
 end Assign2;
