@@ -8,8 +8,10 @@ procedure Assign2 is
    procedure Multiple;
    procedure Sum;
    procedure CheckPrime(Number: Integer);
+   procedure Prime;
    procedure Palindrome;
    procedure PrintArray(Arr: Float_Array);
+   procedure Swap(Left, Right: in out Float);
    procedure ArraySorter(Arr: in out Float_Array);
    procedure ArrayMaker(Arr1, Arr2, Arr3: in Float_Array; Size1, Size2: Integer; ArrResult: out Float_Array; Size3: out Integer);
    procedure RemoveDuplicates(Arr: in out Float_Array; Size: in out Integer);
