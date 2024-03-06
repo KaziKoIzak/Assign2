@@ -1,6 +1,9 @@
+-- This declares the libraries used in the program, for example being able to print
 with Ada.Text_IO; use Ada.Text_IO;
 
+-- This is the main procedure of the program
 procedure Assign2 is
+   -- This is a custom data type that allows us to not type as muhc
    type Float_Array is array (Positive range <>) of Float;
    -- Declarations (if any)
    List : array(1 .. 14) of Integer := (3, 105, 3773, 13, 121, 78, 30751, 16461, 1233222, 348373443, 8769, 1011, 808, 121);
@@ -30,7 +33,7 @@ procedure Assign2 is
       -- Call other procedures for part B if needed
    end Main;
 
-   -- Procedure bodies
+   -- This program runs a function called multiple which check if the global array is multiple of 7, 11, 13
    procedure Multiple is
    begin
    -- Loop to go through the array
@@ -56,16 +59,19 @@ procedure Assign2 is
       end loop;
    end Multiple;
 
-
+   -- This procedure adds the sum of each digit in a number and checks if it is odd or even
    procedure Sum is
+      -- Declare varaible
       Number : Integer;
    begin
+      -- Go through the array, and reinitialize it constantly
       for I in List'Range loop
          declare
             Sum : Integer := 0;
             Digit : Integer;
             Even : Boolean;
          begin
+            -- Starting number
             Number := List(I);
 
             -- Iterate through each digit of the number
@@ -80,6 +86,7 @@ procedure Assign2 is
                Number := Number / 10;
             end loop;
 
+            -- Even or Odd
             Even := Sum mod 2 = 0;
 
             -- Tell the user
@@ -89,10 +96,12 @@ procedure Assign2 is
       end loop;
    end Sum;
 
-
+   -- The procedure checks if a number is prime, when given an integer
    procedure CheckPrime(Number: Integer) is
+      -- Variable decleration
       Answer: Boolean := True;
    begin
+      -- Check if it 2 or less
       if Number < 2 then
          Answer := False;  -- Numbers less than 2 are not prime
       else
@@ -110,7 +119,7 @@ procedure Assign2 is
       Put_Line("The Number " & Integer'Image(Number) & (if Answer then " is Prime" else " isn't Prime"));
    end CheckPrime;
 
-   -- Example usage
+   -- Run a loop to check if it is prime
    procedure Prime is
    begin
       for Num in List'Range loop
@@ -118,10 +127,12 @@ procedure Assign2 is
       end loop;
    end Prime;
 
-
+   -- The procedure that checks if the integer is a palindrome or not
    procedure Palindrome is
+      -- Declare Number
       Number : Integer;
    begin
+      -- Go through the list
       for I in List'Range loop
          declare
             Reversed : Integer := 0;
@@ -129,6 +140,7 @@ procedure Assign2 is
             Digit : Integer;
             Answer : Boolean := False;
          begin
+            -- The original number and the number that is going to be messed with are declared
             Original := List(I);
             Number := List(I);
 
@@ -144,6 +156,7 @@ procedure Assign2 is
                Number := Number / 10;
             end loop;
 
+            -- Check if it is true
             if Original = Reversed then
                Answer := True;
             end if;
@@ -155,7 +168,7 @@ procedure Assign2 is
       end loop;
    end Palindrome;
 
-
+   -- The procedure Part A is Part A of assignment and tells the user the results, this is where it gets called
    procedure PartA is
    begin
       -- Print where we are at and then also print which function we are at
@@ -174,7 +187,7 @@ procedure Assign2 is
       Palindrome;
    end PartA;
 
-
+   -- This prints the array given a parameter of a float_array
    procedure PrintArray(Arr: Float_Array) is
    begin
       -- Go through every element of the array and print them
@@ -185,13 +198,17 @@ procedure Assign2 is
       New_Line;
    end PrintArray;
 
+   -- This procedure swaps the left and right numbers, this is used in bubble sort Right being j+1, and Left being J
    procedure Swap(Left, Right: in out Float) is
+      -- Store Temp
       Temp : Float := Left;
    begin
+      -- Swap
       Left := Right;
       Right := Temp;
    end Swap;
 
+   -- Procdure that needs a Float Array and sorts them using the bubble sort algorithm
    procedure ArraySorter(Arr: in out Float_Array) is
    begin
       -- Bubble sort algorithm
@@ -205,7 +222,9 @@ procedure Assign2 is
       end loop;
    end ArraySorter;
 
+   -- This procedure has plenty of arrays and integers, that is needed to make the larger array that both the first two arrays go into
    procedure ArrayMaker(Arr1, Arr2, Arr3: in Float_Array; Size1, Size2: Integer; ArrResult: out Float_Array; Size3: out Integer) is
+      -- Decleration of variables
       I : Integer := 1;
    begin
       -- Put array 1 into larger array
@@ -223,8 +242,10 @@ procedure Assign2 is
       Size3 := I - 1;
    end ArrayMaker;
 
+   -- Removes any duplicates in the larger array given the array and its size
    procedure RemoveDuplicates(Arr: in out Float_Array; Size: in out Integer) is
-   Unique_Vector : Float_Array(1 .. Arr'Length);
+      -- Declare a new temp array
+      Unique_Vector : Float_Array(1 .. Arr'Length);
    begin
       -- Use the erase-remove idiom to remove duplicates
       Unique_Vector := Arr;
@@ -235,7 +256,7 @@ procedure Assign2 is
       Arr := Unique_Vector;
    end RemoveDuplicates;
 
-
+   -- This procedure takes care of Part B of the assignment
    procedure PartB is
       -- Declare float arrays
       System : Float_Array := (1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 12.4362, 24654.1234, 1234475.234, 0.00234923, 0.2341, 13.0, 14.0, 15.0);
@@ -271,8 +292,7 @@ procedure Assign2 is
       PrintArray(New_Array);
    end PartB;
 
-   -- Add bodies for other procedures used in your code
-
+-- Where the program actually begins
 begin
    Main;
 end Assign2;
